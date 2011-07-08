@@ -1,0 +1,13 @@
+This is my solution to the water flow challenge in javascript.
+
+The challenge is to find the path of least resistance from left to right given a matrix of resistances.
+
+If the resistance is >50, the water cannot continue.
+
+
+It's all working except that the maximum size grid (10 x 100) ends up timing out in javascript.. (derp).  So I commented out that test for now. 
+
+
+
+
+
