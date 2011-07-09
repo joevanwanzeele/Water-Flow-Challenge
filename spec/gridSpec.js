@@ -131,15 +131,23 @@ describe("Grid", function(){
 	});
 	
 	it("will indicate when no path with a total resistance of 50 or less exists", function(){
-		addRowFromArray(grid, [10,10,10,10,11,0]);
-		addRowFromArray(grid, [10,10,10,10,11,0]);
-		addRowFromArray(grid, [10,10,10,10,11,0]);
-		addRowFromArray(grid, [10,10,10,10,11,0]);
-		addRowFromArray(grid, [10,10,10,10,11,0]);
+		// addRowFromArray(grid, [10,10,10,10,11,0]);
+		// addRowFromArray(grid, [10,10,10,10,11,0]);
+		// addRowFromArray(grid, [10,10,10,10,11,0]);
+		// addRowFromArray(grid, [10,10,10,10,11,0]);
+		// addRowFromArray(grid, [10,10,10,10,11,0]);
+		
+		addRowFromArray(grid, [19,10,19,10,19]);
+		addRowFromArray(grid, [21,23,20,19,12]);
+		addRowFromArray(grid, [20,12,20,11,10]);
+		
 		
 		grid.findShortestPath();
 		
-		expect(grid.completedPathExists).toEqual(false);				
+		expect(grid.completedPathExists).toEqual(false);
+		expect(grid.leastResistance).toEqual(48);
+		expect(grid.shortestPath()).toEqual([1, 1, 1]);
+		
 	});
 	
 	it("will figure out path when negative values are introduced", function(){
@@ -151,7 +159,7 @@ describe("Grid", function(){
 		
 		grid.findShortestPath();
 		expect(grid.completedPathExists).toEqual(true);
-		expect(grid.leastResistance).toEqual(50);
+		expect(grid.leastResistance).toEqual(40);
 	});
 	
 	// it("can handle up to 10 rows and 100 columns", function(){

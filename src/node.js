@@ -7,10 +7,11 @@ function Node(resistance){
 Node.prototype.findShortestPath = function(grid)
 {
 	var nextPositions = grid.possibleMovesFrom(this.position.x, this.position.y);
-	var leastResistance = MAX_PATH_LENGTH+1;
-	
-	if (nextPositions)
+		
+	if (nextPositions)	
 	{	
+		var leastResistance = MAX_PATH_LENGTH+1;
+
 		var shortestIndex = -1;		
 		for (var i = 0; i<3; i++)
 		{

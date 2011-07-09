@@ -42,34 +42,61 @@ Grid.prototype.possibleMovesFrom = function(row, col){
 }
 
 Grid.prototype.findShortestPath = function()
-{
-	var shortestPathLength = MAX_PATH_LENGTH+1;
+{	
+	var shortestPathLength = this.matrix[0][0].findShortestPath(this);
+	this.shortestFirstStep = this.matrix[0][0];
 	
-	for (var i = 0; i<this.numberOfRows; i++)
+	for (var i = 1; i<this.numberOfRows; i++)
 	{
 		var currentLength = this.matrix[i][0].findShortestPath(this);
+		
 		if (currentLength < shortestPathLength)
 		{
 			shortestPathLength = currentLength;
 			this.shortestFirstStep = this.matrix[i][0];
-		}
-		
+		}		
 		this.leastResistance = shortestPathLength;		
 	}	
 	this.completedPathExists = shortestPathLength <= MAX_PATH_LENGTH;
+	
+	this.setLeastResistance();
 }
 
 Grid.prototype.shortestPath = function()
 {
 	var nextNode = this.shortestFirstStep;
 	var path = [];
+	var totalLength = 0;
 	
 	while (nextNode)
 	{
-		path.push(nextNode.position.x + 1);
-		nextNode = nextNode.shortestNextStep;
-	}
-	
+		totalLength += nextNode.resistance;
+		if (totalLength <= MAX_PATH_LENGTH)
+		{
+			path.push(nextNode.position.x + 1);		
+			nextNode = nextNode.shortestNextStep;
+		}
+		else
+			break;
+	}	
 	return path;
 }
+
+
+Grid.prototype.setLeastResistance = function()
+{
+	var total = 0;	
+	var nextNode = this.shortestFirstStep;	
+	while (nextNode)
+	{
+		if (total + nextNode.resistance > MAX_PATH_LENGTH)
+		{
+			this.leastResistance = total;
+			return;
+		}		
+		total += nextNode.resistance;
+		nextNode = nextNode.shortestNextStep;
+	}
+}
+
 
